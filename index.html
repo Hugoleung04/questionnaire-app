@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>我們現在怎麼感受愛</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&family=Noto+Serif+TC:wght@500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <div class="brand">問卷</div>
+      <nav class="nav">
+        <button class="btn ghost" data-view="home">主頁</button>
+        <button class="btn ghost" data-view="history">紀錄</button>
+        <button class="btn ghost" data-view="settings">設定</button>
+      </nav>
+    </header>
+
+    <main id="view-home">
+      <section class="hero">
+        <h1>我們現在怎麼感受愛</h1>
+        <p>30 條關於最近日常、相處同感受嘅問題。每次都寫「而家」嘅答案，唔好偷看上次再照抄。</p>
+        <div class="stat" id="home-stat">尚未提交過答案</div>
+        <div class="home-actions">
+          <button class="btn primary" id="start-btn">開始填寫</button>
+          <button class="btn" id="resume-btn">繼續上次未完成</button>
+        </div>
+      </section>
+      <div class="notice">
+        答案會先存在呢部手機／電腦嘅瀏覽器。如果你喺設定入面填咗 GitHub repo 同 token，提交之後亦會備份成一個 JSON 檔去個 repo。
+      </div>
+    </main>
+
+    <main id="view-form" class="hidden">
+      <div class="progress-wrap">
+        <div class="progress-meta">
+          <span id="section-label"></span>
+          <span id="progress-text"></span>
+        </div>
+        <div class="bar"><span id="progress-bar"></span></div>
+      </div>
+      <h2 class="section-title" id="section-title"></h2>
+      <p class="hint" id="section-hint"></p>
+      <div class="field" style="margin-top:16px">
+        <label for="respondent">你嘅名／暱稱（可選）</label>
+        <input type="text" id="respondent" placeholder="例如：阿豐" />
+      </div>
+      <div id="questions"></div>
+      <div class="pager">
+        <button class="btn" id="prev-btn">上一頁</button>
+        <button class="btn" id="save-draft-btn">暫存</button>
+        <button class="btn primary" id="next-btn">下一頁</button>
+      </div>
+    </main>
+
+    <main id="view-history" class="hidden">
+      <div class="history-wrap">
+        <h2>過往答案</h2>
+        <p class="muted">填表途中唔會見到呢度，避免照抄上次。</p>
+        <div id="history-list"></div>
+      </div>
+    </main>
+
+    <main id="view-result" class="hidden">
+      <section class="hero">
+        <h1>今次已儲存</h1>
+        <p id="result-meta"></p>
+        <div class="home-actions">
+          <button class="btn primary" data-view="history">睇全部紀錄</button>
+          <button class="btn" id="download-btn">下載呢份 JSON</button>
+          <button class="btn" data-view="home">返主頁</button>
+        </div>
+      </section>
+      <div id="result-body"></div>
+    </main>
+
+    <main id="view-settings" class="hidden">
+      <div class="settings">
+        <h2>儲存設定</h2>
+        <p class="muted">本機一定會存。GitHub 同步係可選，方便兩部裝置或者長期備份。</p>
+
+        <div class="field">
+          <label>GitHub 用戶名</label>
+          <input type="text" id="gh-owner" placeholder="your-github-username" />
+        </div>
+        <div class="field">
+          <label>Repo 名</label>
+          <input type="text" id="gh-repo" placeholder="love-questionnaire" />
+        </div>
+        <div class="field">
+          <label>Personal Access Token（只建議用 fine-grained，只開呢個 repo 嘅 Contents 權限）</label>
+          <input type="password" id="gh-token" placeholder="ghp_ 或 github_pat_" autocomplete="off" />
+        </div>
+        <div class="field">
+          <label>存放資料夾</label>
+          <input type="text" id="gh-path" value="answers" />
+        </div>
+        <p class="hint">Token 只存在你呢部裝置嘅瀏覽器，唔會傳到其他伺服器。公開 repo 就唔好放私人答案。</p>
+        <div class="home-actions">
+          <button class="btn primary" id="save-settings">儲存設定</button>
+          <button class="btn" id="test-github">測試 GitHub 連線</button>
+          <button class="btn" id="export-all">匯出全部本機紀錄</button>
+          <label class="btn file-btn">匯入 JSON
+            <input type="file" id="import-file" accept="application/json" hidden />
+          </label>
+          <button class="btn" id="clear-draft">清未完成草稿</button>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <div class="toast" id="toast"></div>
+  <script src="questions.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
